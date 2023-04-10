@@ -2,8 +2,8 @@ const express = require('express')
 const app = express()
 
 app.set('view engine', 'ejs')
-app.set('views', 'views')
-app.use('/public', express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views')
+app.use('/public', express.static(__dirname + '/public'))
 
 
 app.get('/', async (req, res) => {
