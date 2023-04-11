@@ -37,12 +37,13 @@ const start = (e) => {
   })
 
   Quagga.onDetected((result) => {
-    document.querySelector('#result').textContent = result.codeResult.code
+    document.querySelector('.result').textContent = result.codeResult.code
     res.push(result.codeResult.code)
     if (res.length == 6) {
       res.shift()
     }
     if (res.length == 5 && res.every(v => v == res[0])) {
+      Quagga.canvas.dom.overlay.display = 'none'
       Quagga.stop()
     }
   })
