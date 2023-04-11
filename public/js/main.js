@@ -50,7 +50,7 @@ const start = (e) => {
       //     });
       //   };
       // });
-    }, 200);
+    }, 1000);
   }).catch(function (e) {
     document.querySelector('#result').textContent = JSON.stringify(e);
   });
