@@ -1,57 +1,49 @@
 const start = (e) => {
   e.style.display = 'none'
-  var video = document.createElement('video');
-  var canvas = document.querySelector('#canvas');
-  // var buf = document.createElement('canvas');
-  // document.body.append(buf);
-  navigator.mediaDevices.getUserMedia({
-    video: {
-      facingMode: 'environment'
+  const res = []
+  Quagga.init(
+    {
+      inputStream: {
+        type: 'LiveStream',
+        target: document.querySelector('.content')
+      },
+      constraints: {
+        width: 640,
+        height: 480,
+        facingMode: 'environment',
+      },
+      decoder: {
+        readers: ['ean_reader']
+      }
     },
-    audio: false
-  }).then(function (stream) {
-    video.srcObject = stream;
-    video.play();
-    setInterval(function () {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      var ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, canvas.width, canvas.height);
-      var box = {
-        x: 50,
-        h: 100
-      };
-      box.y = (canvas.height - box.h) / 2;
-      box.w = (canvas.width - box.x * 2);
-      ctx.beginPath();
-      ctx.strokeStyle = 'rgb(85,197,1)';
-      ctx.lineWidth = 2;
-      ctx.rect(box.x, box.y, box.w, box.h);
-      ctx.stroke();
-      // buf.width = box.w;
-      // buf.height = box.h;
-      // buf.getContext('2d').drawImage(canvas, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
-      // if (isDetecting) return;
-      // isDetecting = true;
-      // buf.toBlob(function (blob) {
-      //   var reader = new FileReader();
-      //   reader.readAsDataURL(blob);
-      //   reader.onload = function () {
-      //     Quagga.decodeSingle({
-      //       decoder: {
-      //         readers: ["ean_reader"],
-      //       },
-      //       src: reader.result
-      //     }, function (result) {
-      //       if (result && result.codeResult) {
-      //         document.querySelector('#result').textContent = result.codeResult.code;
-      //       }
-      //       isRecognizing = false;
-      //     });
-      //   };
-      // });
-    }, 1000);
-  }).catch(function (e) {
-    document.querySelector('#result').textContent = JSON.stringify(e);
-  });
+    function (err) {
+      if (err) {
+        console.error(err)
+        return
+      }
+      console.log('start')
+      Quagga.start()
+    }
+  )
+
+  Quagga.onProcessed((result) => {
+    const ctx = Quagga.canvas.ctx.overlay
+    const canvas = Quagga.canvas.dom.overlay
+    ctx.clearRect(0, 0, parseInt(canvas.width), parseInt(canvas.height))
+    if (result?.box) {
+      console.log(JSON.stringify(result.box))
+      Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, ctx, { color: '#55C501', lineWidth: 2 })
+    }
+  })
+
+  Quagga.onDetected((result) => {
+    document.querySelector('#result').textContent = result.codeResult.code
+    res.push(result.codeResult.code)
+    if (res.length == 6) {
+      res.shift()
+    }
+    if (res.length == 5 && res.every(v => v == res[0])) {
+      Quagga.stop()
+    }
+  })
 }
