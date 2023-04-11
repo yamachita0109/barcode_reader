@@ -2,8 +2,8 @@ const start = (e) => {
   e.style.display = 'none'
   var video = document.createElement('video');
   var canvas = document.querySelector('#canvas');
-  var buf = document.createElement('canvas');
-  document.body.append(buf);
+  // var buf = document.createElement('canvas');
+  // document.body.append(buf);
   navigator.mediaDevices.getUserMedia({
     video: {
       facingMode: 'environment'
@@ -28,28 +28,28 @@ const start = (e) => {
       ctx.lineWidth = 2;
       ctx.rect(box.x, box.y, box.w, box.h);
       ctx.stroke();
-      buf.width = box.w;
-      buf.height = box.h;
-      buf.getContext('2d').drawImage(canvas, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
-      if (isDetecting) return;
-      isDetecting = true;
-      buf.toBlob(function (blob) {
-        var reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onload = function () {
-          Quagga.decodeSingle({
-            decoder: {
-              readers: ["ean_reader"],
-            },
-            src: reader.result
-          }, function (result) {
-            if (result && result.codeResult) {
-              document.querySelector('#result').textContent = result.codeResult.code;
-            }
-            isRecognizing = false;
-          });
-        };
-      });
+      // buf.width = box.w;
+      // buf.height = box.h;
+      // buf.getContext('2d').drawImage(canvas, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
+      // if (isDetecting) return;
+      // isDetecting = true;
+      // buf.toBlob(function (blob) {
+      //   var reader = new FileReader();
+      //   reader.readAsDataURL(blob);
+      //   reader.onload = function () {
+      //     Quagga.decodeSingle({
+      //       decoder: {
+      //         readers: ["ean_reader"],
+      //       },
+      //       src: reader.result
+      //     }, function (result) {
+      //       if (result && result.codeResult) {
+      //         document.querySelector('#result').textContent = result.codeResult.code;
+      //       }
+      //       isRecognizing = false;
+      //     });
+      //   };
+      // });
     }, 200);
   }).catch(function (e) {
     document.querySelector('#result').textContent = JSON.stringify(e);
