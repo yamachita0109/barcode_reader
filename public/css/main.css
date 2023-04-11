@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.content {
+  width: 100%;
+  height: auto;
+}
+
+.content > video,
+.content > canvas {
+  width: 100%;
+}
+
+.content > canvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
