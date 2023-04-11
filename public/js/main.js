@@ -1,5 +1,4 @@
 const start = (e) => {
-  e.style.display = 'none'
   const res = []
   Quagga.init(
     {
@@ -43,7 +42,7 @@ const start = (e) => {
       res.shift()
     }
     if (res.length == 5 && res.every(v => v == res[0])) {
-      Quagga.canvas.dom.overlay.display = 'none'
+      Quagga.canvas.dom.overlay.style.display = 'none'
       Quagga.stop()
     }
   })
