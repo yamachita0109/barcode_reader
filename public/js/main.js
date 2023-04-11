@@ -1,4 +1,4 @@
-const start = (e) => {
+const start = () => {
   const res = []
   Quagga.init(
     {
