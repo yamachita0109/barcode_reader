@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/prop_cnt/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRコードリーダーサンプル</title>
+  <!-- https://cdnjs.com/libraries/milligram -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
+    integrity="sha512-xiunq9hpKsIcz42zt0o2vCo34xV0j6Ny8hgEylN3XBglZDtTZ2nwnqF/Z/TTCc18sGdvCjbFInNd++6q3J0N6g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    rel="stylesheet"
+    href="./public/css/main.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="./public/js/qr.js"></script>
+
+</head>
+
+<body>
+  <main class="wrapper">
+    <!-- nav -->
+    <nav class="navigation" style="border-bottom: 0.1rem solid #d1d1d1;margin-bottom: 20px;">
+      <section class="container">
+        QRコードリーダーサンプル
+      </section>
+    </nav>
+
+    <!-- content -->
+    <section class="container">
+      <div style="text-align: center;">
+        <a onclick="start()" class="button" href="#"><span class="pln">Start.</span></a>
+      </div>
+      <div style="text-align: center;">
+        <pre><code class="result"></code></pre>
+      </div>
+      <canvas id="canvas"></canvas>
+    </section>
+  </main>
+</body>
+</html>

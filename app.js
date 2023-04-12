@@ -10,6 +10,10 @@ app.get('/', async (req, res) => {
   res.render('index')
 })
 
+app.get('/qr', async (req, res) => {
+  res.render('qr')
+})
+
 app.get('/check', async (req, res) => {
   res.json({
     result: 'ok',
