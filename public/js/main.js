@@ -1,4 +1,8 @@
 const start = () => {
+  const btn = document.querySelector('.button')
+  const result = document.querySelector('.result')
+  btn.setAttribute('disabled', true)
+  result.textContent = ''
   const res = []
   Quagga.init(
     {
@@ -44,6 +48,7 @@ const start = () => {
     if (res.length == 5 && res.every(v => v == res[0])) {
       Quagga.canvas.dom.overlay.style.display = 'none'
       Quagga.stop()
+      btn.removeAttribute('disabled')
     }
   })
 }
